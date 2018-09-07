@@ -1,0 +1,109 @@
+@{
+    ViewData["Title"] = "PageNotFound";
+}
+
+<script type="text/javascript">
+    var context;
+    var dx = 4;
+    var dy = 4;
+    var y = 150;
+    var x = 10;
+    function draw() {
+        context = myCanvas.getContext('2d');
+
+        var image = new Image();
+
+        function drawPattern() {
+            context.fillStyle = context.createPattern(image, "repeat");
+            context.fillRect(568, 426, 0, 0);
+        }
+
+        image.src = "../../images/header-logo.png";
+        image.onload = drawPattern;
+
+        context.clearRect(0, 0, 568, 426);
+        context.beginPath();
+        context.arc(x, y, 50, 0, Math.PI * 2, true);
+        context.closePath();
+        context.fill();
+        if (x < 0 || x > 568)
+            dx = -dx;
+        if (y < 0 || y > 426)
+            dy = -dy;
+        x += dx;
+        y += dy;
+    }
+    setInterval(draw, 50);
+
+    document.getElementById('jumbotron-header').style.display = 'none';
+</script>
+
+<style type="text/css">
+    body {
+        background-color: #ededed;
+        font: normal 12px/18px Arial, Helvetica, sans-serif;
+    }
+
+    h1 {
+        display: block;
+        width: 600px;
+        margin: 20px auto;
+        padding-bottom: 20px;
+        font: normal 24px/30px Georgia, "Times New Roman", Times, serif;
+        color: #333;
+        text-shadow: 1px 2px 3px #ccc;
+        border-bottom: 1px solid #cbcbcb;
+    }
+
+    #container {
+        width: 600px;
+        margin: 0 auto;
+    }
+
+    #myCanvas {
+        background: url("../../Images/404.jpg");
+        border: 1px solid #cbcbcb;
+        margin-top: 5em;
+        margin-bottom: 5em;
+    }
+
+    #nav {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+        #nav li {
+            display: block;
+            font-weight: bold;
+            line-height: 21px;
+            text-shadow: 1px 1px 1px #fff;
+            width: 100px;
+            height: 21px;
+            padding: 5px;
+            margin: 0 10px;
+            background: #e0e0e0;
+            border: 1px solid #ccc;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            float: left;
+        }
+
+            #nav li a {
+                color: #000;
+                display: block;
+                text-decoration: none;
+                width: 100%;
+                height: 100%;
+            }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-push-3">
+            <a href="~/" title="Click to return to home">
+                <canvas id="myCanvas" width="568" height="426"></canvas>
+            </a>
+        </div>
+    </div>
+</div>

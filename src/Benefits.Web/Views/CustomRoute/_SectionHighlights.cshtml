@@ -1,0 +1,12 @@
+@model List<Benefits.Shared.Models.Templates.TextBoxWidget>
+
+@foreach (var highlight in Model)
+{
+    <h3 class="dark-blue">
+        <a href="@highlight.HeadlineSrc">
+            @highlight.HeadlineName
+            <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </a>
+    </h3>
+    <p class="black">@highlight.Description</p>
+}

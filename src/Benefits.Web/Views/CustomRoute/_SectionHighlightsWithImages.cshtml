@@ -1,0 +1,40 @@
+@model Tuple<List<Benefits.Shared.Models.Templates.TextBoxWidget>, Benefits.Shared.Interfaces.IUIHelpers>
+
+@{
+    var textBoxWidget = Model.Item1;
+    var uiHelpers = Model.Item2;
+    var index = 0;
+}
+
+@foreach (var textbox in textBoxWidget)
+{
+    // If index is even then create new row
+    if (index % 2 == 0)
+    {
+        // Apply top margin to all but the first row.
+        string rowStyle = (index > 0 ? "margin-top: 2em;" : "");
+        @:<div class="row" style="@rowStyle">
+    }
+    <div class="col-md-6">
+        @if (textbox.ImageID != null)
+        {
+            <img class="img-responsive hcenter"
+                 src="@uiHelpers.GetDocLocRenderURL(@textbox.ImageID)" />
+        }
+        <h3 class="dark-blue">
+            <a href="@textbox.HeadlineSrc">
+                @textbox.HeadlineName
+                <span class="glyphicon glyphicon-circle-arrow-right"></span>
+            </a>
+        </h3>
+        <p class="black">@textbox.Description</p>
+    </div>
+
+    // If index is odd then end new row
+    if (index % 2 != 0)
+    {
+        @:</div>
+    }
+
+    index++;
+}

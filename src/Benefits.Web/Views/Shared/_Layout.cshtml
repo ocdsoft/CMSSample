@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Benefits</title>
+    <meta name="description" content="CIS Benefits enrollment for members of CIS Oregon">
+    <!--<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7646754/6666172/css/fonts.css" /> -->
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/datatables.net.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"
+              asp-fallback-href="~/css/datatables.net.min.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script src="~/lib/google/analytics-tracking.js"></script>
+    </environment>
+</head>
+<body>
+    <!-- Facebook JavaScript SDK. -->
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1349784175098996', // See KeePass Facebook entry.
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v2.9'
+            });
+            // FB.AppEvents.logPageView(); // This line threw an error and is unnecessary.
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js"; // sdk.js
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <vc:header-footer view-name="header" />
+    @RenderBody()
+    <vc:header-footer view-name="footer" />
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/modernizr/modernizr-custom.min.js"></script>
+        <script src="~/lib/knockout/dist/knockout.debug.js"></script>
+        <script src="~/lib/datatables.net/js/jquery.dataTables.js"></script>
+        <script src="~/scripts/global.js"></script>
+        <script src="~/scripts/navbar-toggle.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous">
+        </script>
+        <script src="~/lib/modernizr/modernizr-custom.min.js" asp-append-version="true"></script>
+        <script src="~/lib/knockout/dist/knockout.js" asp-append-version="true"></script>
+        <script src="~/lib/datatables.net/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+        <script src="~/scripts/global.js"></script>
+        <script src="~/scripts/navbar-toggle.js"></script>
+    </environment>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,10 @@
+@model Benefits.Shared.Models.Templates.InfoBoxWidget
+
+@if (Model != null)
+{
+    <div class="well well-default div-white">
+        <h3>@Model.Headline</h3>
+        <hr class="light-blue">
+        @Html.Raw(Model.Body)
+    </div>
+}

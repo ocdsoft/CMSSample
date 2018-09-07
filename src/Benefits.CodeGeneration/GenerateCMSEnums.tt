@@ -1,0 +1,66 @@
+﻿<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.DataSetExtensions" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="EnumTemplate.tt" #>
+<#
+	//System.Diagnostics.Debugger.Launch();
+	//System.Diagnostics.Debugger.Break();
+
+	string cisOregonConnectionString = "Data Source=sql.cciservices.com;Initial Catalog=CISOregon;Integrated Security=True;";
+    EnumTemplate template = new EnumTemplate();
+
+    // Shared assembly enums
+    template.Namespace = "Benefits.Shared.Enums";
+    template.Output.Project = @"..\Benefits.Shared\Benefits.Shared.csproj";
+    template.ConnectionString = cisOregonConnectionString;
+
+	string cmsEnumsWhereCondition = " lt.LookupTypeID IN (9, 10) ";
+
+    // LookupType
+    template.EnumName = "LookupType";
+    template.SelectStatement = "select lt.Name as EnumValueName, lt.LookupTypeID as EnumValueID from LookupType lt where " + cmsEnumsWhereCondition + " order by EnumValueName";
+	template.HelperClassMethods = null;
+    template.IncludeExplicitEnumValues = true;
+    template.Output.File = @"Enums\LookupType.cs";
+    template.Render();
+
+    var lookupTypes = new DataTable();
+
+    using (var conn = new SqlConnection(cisOregonConnectionString))
+    {
+		string sqlCommand = "select lt.LookupTypeID, lt.Name from LookupType lt where " + cmsEnumsWhereCondition + " order by lt.Name";
+
+        using (var cmd = new SqlCommand(sqlCommand, conn))
+        {
+            conn.Open();
+            lookupTypes.Load(cmd.ExecuteReader(CommandBehavior.CloseConnection));
+        }
+    }
+	
+    foreach (DataRow dr in lookupTypes.Rows)
+    {
+		var lookupTypeID = dr.Field<int>("LookupTypeID");
+		var lookupTypeName = dr.Field<string>("Name");
+		
+		var enumValueNameColumnName = "l.LookupDescription";
+		
+		template.EnumName = lookupTypeName;
+	    template.SelectStatement = string.Format(@"
+				select {0} as EnumValueName, l.LookupID as EnumValueID 
+				from Lookup l join LookupType lt on lt.LookupTypeID = l.LookupTypeID 
+				where lt.Name = '{1}' AND " + cmsEnumsWhereCondition + " order by EnumValueName",
+			enumValueNameColumnName,
+			lookupTypeName);
+		template.HelperClassMethods = null;
+		template.IncludeExplicitEnumValues = true;
+		template.Output.File = string.Format(@"Enums\{0}.cs", lookupTypeName);
+		template.Render();
+	}
+#>

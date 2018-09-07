@@ -1,0 +1,63 @@
+@model Benefits.Web.ViewModels.HeaderFooterViewModel
+
+<div class="header-top BGColors-brightBlue">
+    <div class="container">
+        <div class="row">
+            @if (Model.HeaderLink == null)
+            {
+                <div class="col-md-12" style="height: 27px;"></div>
+            }
+            else
+            {
+                <div class="col-md-3 col-md-push-9">
+                    <a class="btn btn-default btn-sm" href="@Model.HeaderLink.LinkSrc" target="_blank">
+                        @Model.HeaderLink.LinkName
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">
+                <span class="sr-only">CIS Logo</span>
+            </a>
+            <!-- Hamburger icon for mobile. -->
+            <button type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul id="mainNavBar" class="nav navbar-nav navbar-left">
+                @foreach (var menuSections in Model.MenuSections)
+            {
+                    <li class="dropdown">
+                        <a href="@menuSections.SectionMenuItems[0].LinkUrl"
+                           class="dropdown-toggle"
+                           data-toggle="dropdown"
+                           data-hover="dropdown"
+                           data-target="menu"
+                           disabled>
+                            @menuSections.SectionName<span class="caret"></span>
+                        </a>
+                        <ul id="menu" class="dropdown-menu" role="menu">
+                            @foreach (var menuItems in menuSections.SectionMenuItems)
+                            {
+                                <li><a href="@menuItems.LinkUrl">@menuItems.LinkText</a></li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="jumbotron-header" class="jumbotron extendedheader BGImages-Smiling tall"></div>

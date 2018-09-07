@@ -1,0 +1,79 @@
+@model Benefits.Web.ViewModels.HeaderFooterViewModel
+
+<div class="footer BGImages-Town div-white">
+    <div class="container">
+        <div class="row" style="margin-top: 1em;">
+            <div class="col-md-2">
+                <img src="~/images/footer-logo.png" class="logo-width pull-left" />
+            </div>
+        </div>
+        <div class="row">
+            <hr class="light-blue">
+        </div>
+        <div class="row">
+            @foreach (var menuSections in Model.MenuSections)
+            {
+                <div class="col-md-2">
+                    <ul class="list-unstyled">
+                        @{
+                            bool sectionRoot = true;
+
+                            foreach (var menuItems in menuSections.SectionMenuItems)
+                            {
+                                if (sectionRoot)
+                                {
+                                    <li><strong><a href="@menuItems.LinkUrl">@menuItems.LinkText</a></strong></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@menuItems.LinkUrl">@menuItems.LinkText</a></li>
+                                }
+
+                                sectionRoot = false;
+                            }
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="sub-footer container-fluid div-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h5>MAIN OFFICE</h5>
+                <p>1212 Court Street, Salem OR 97301</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Phone:</b>
+                    </div>
+                    <div class="col-md-6">
+                        503.763.3800
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Toll Free:</b>
+                    </div>
+                    <div class="col-md-6">
+                        800.922.2684
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <b>Fax:</b>
+                    </div>
+                    <div class="col-md-6">
+                        503.763.3900
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="https://www.cisoregon.org/" style="text-decoration: none; font-size: x-small;">&copy; 2017 Citycounty Insurance Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+@model Benefits.Web.ViewModels.CMSViewModel
+
+<div class="container">
+    <div class="row div-white">
+        <div class="col-md-12">
+            <h2>@Model.AccountFlyerTemplate.PageName</h2>
+            <h4>
+                <strong>
+                    <a class="text-uppercase" href="@Model.AccountFlyerTemplate.PublicAnnouncement.HeadlineSrc">
+                        @Model.AccountFlyerTemplate.PublicAnnouncement.HeadlineName
+                    </a>
+                </strong>
+            </h4>
+            <hr class="light-blue" />
+            <p class="visible-md visible-lg">@Model.AccountFlyerTemplate.PublicAnnouncement.Description</p>
+            <p class="visible-xs visible-sm text-minWidthForSmallScreen">
+                @Model.AccountFlyerTemplate.PublicAnnouncement.Description
+            </p>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 8em;">
+        <div class="col-md-8">
+            @if (Model.AccountFlyerTemplate.Billboard != null && Model.AccountFlyerTemplate.Billboard.IsLive)
+            {
+                <div style="margin-bottom: 2em;">
+                    @if (Model.AccountFlyerTemplate.Billboard.IsActuallyAVideoLink)
+                    {
+                        <div class="embed-responsive embed-responsive-16by9">
+                            @Html.Raw(Model.AccountFlyerTemplate.Billboard.MediaEmbedCode)
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.Partial("_Billboard",
+                        Tuple.Create(
+                            Model.AccountFlyerTemplate.Billboard,
+                            Model.AccountFlyerTemplate.UIHelpers))
+                    }
+                </div>
+            }
+
+            @if (Model.AccountFlyerTemplate.SectionHighlights != null)
+            {
+                @Html.Partial("_SectionHighlightsWithImages",
+                    Tuple.Create(
+                            Model.AccountFlyerTemplate.SectionHighlights,
+                            Model.AccountFlyerTemplate.UIHelpers))
+            }
+        </div>
+        <div class="col-md-3 col-md-push-1">
+            <a class="btn btn-default"
+               style="margin-bottom: .5em;"
+               href="@Model.AccountFlyerTemplate.QuickLinksHeading.LinkSrc"
+               target="_blank">
+                @Model.AccountFlyerTemplate.QuickLinksHeading.LinkName
+            </a>
+            @Html.Partial("_LinkList", Model.AccountFlyerTemplate.QuickLinks)
+            @Html.Partial("_SmallInfoBox", Model.AccountFlyerTemplate.SmallInfoBox)
+        </div>
+    </div>
+    @Html.Partial("_CallToAction", Model.AccountFlyerTemplate.CallToAction)
+</div>

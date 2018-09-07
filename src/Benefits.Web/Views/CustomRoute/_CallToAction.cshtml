@@ -1,0 +1,15 @@
+﻿@model Benefits.Shared.Models.Templates.CallToActionWidget
+
+<div class="row">
+    <div class="jumbotron callToAction BGColors-brightBlue div-white">
+        <div class="container">
+            <p class="text-center">@Model.Description</p>
+            <p class="text-center">
+                <a class="btn btn-default btn-md btn-defaultWidth text-uppercase" 
+                   href="@Model.LinkHref">
+                    @Model.LinkName
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

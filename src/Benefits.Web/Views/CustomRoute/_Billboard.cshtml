@@ -1,0 +1,34 @@
+﻿@model Tuple<Benefits.Shared.Models.Templates.BillboardWidget, Benefits.Shared.Interfaces.IUIHelpers>
+
+@{
+    var billboard = Model.Item1;
+    var uiHelpers = Model.Item2;
+}
+
+@if (billboard != null)
+{
+    if (billboard.IsActuallyAVideoLink)
+    {
+        <div class="embed-responsive embed-responsive-16by9">
+            @Html.Raw(billboard.MediaEmbedCode)
+        </div>
+    }
+    else
+    {
+        if (billboard.Image != null)
+        {
+            if (billboard.ImageHref == null)
+            {
+                <img class="img-responsive hcenter"
+                     src="@uiHelpers.GetDocLocRenderURL(@billboard.Image)" />
+            }
+            else
+            {
+                <a href="@billboard.ImageHref">
+                    <img class="img-responsive hcenter"
+                         src="@uiHelpers.GetDocLocRenderURL(@billboard.Image)" />
+                </a>
+            }
+        }
+    }
+}

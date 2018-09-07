@@ -1,0 +1,31 @@
+@model Benefits.Web.ViewModels.PublicationsViewModel
+
+<div class="row" id="PublicationsPartial">
+    <table id="Publications">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var publication in Model.Publications)
+            {
+                <tr>
+                    <td>
+                        <div class="media">
+                            <div class="media-left">
+                                <a target="_blank" href="@Model.UIHelpers.GetDocLocRenderURL(publication.ID)">
+                                    <img class="media-object" src="~/images/document-dots-pdf.png" />
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">@publication.PublishDate.ToString("MMMM, yyyy")</h4>
+                                @publication.Description
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

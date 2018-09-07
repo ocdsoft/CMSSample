@@ -1,0 +1,15 @@
+@model Benefits.Web.ViewModels.CMSViewModel
+
+@{ 
+    ViewBag.Title = Model.CMS.PageName;
+    Html.RenderPartial(Model.TemplatePartialViewName, Model);
+}
+
+@section Scripts {
+    <script>@Html.Raw(string.Format("var jsonData = {0};", Model.JsonData))</script>
+    
+    @foreach(string scriptFileName in Model.ScriptsToRender)
+    {
+        <script src="@scriptFileName" asp-append-version="true"></script>
+    }
+}

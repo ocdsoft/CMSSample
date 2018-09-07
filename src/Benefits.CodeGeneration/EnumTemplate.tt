@@ -1,0 +1,71 @@
+﻿<#@ assembly name="System.Data" #>
+<#@ assembly name="System.Data.DataSetExtensions" #>
+<#@ assembly name="System.Xml" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#+
+public class EnumTemplate : CSharpTemplate
+{
+    public string Namespace;
+    public string EnumName;
+    public string ConnectionString;
+    public string SelectStatement;
+    public bool IncludeExplicitEnumValues;
+    public string HelperClassMethods;
+
+	public override string TransformText()
+	{
+		base.TransformText();
+#>
+namespace <#= Namespace #>
+{    
+    public enum <#= EnumName #>
+    {
+		Default = 0,
+<#+
+        DataTable enumValues = new DataTable();
+        using (SqlConnection conn = new SqlConnection(ConnectionString))
+        {
+            using (SqlCommand cmd = new SqlCommand(SelectStatement, conn))
+            {
+                conn.Open();
+                enumValues.Load(cmd.ExecuteReader(CommandBehavior.CloseConnection));
+            }
+        }
+        PushIndent("\t\t");
+        foreach (DataRow dr in enumValues.Rows)
+        {
+			var enumValueName = dr.Field<string>("EnumValueName");
+			enumValueName = enumValueName.Replace("-", string.Empty);
+			enumValueName = enumValueName.Replace(".", string.Empty);
+			enumValueName = enumValueName.Replace("&", string.Empty);
+			enumValueName = enumValueName.Replace("/", string.Empty);
+			enumValueName = enumValueName.Replace(",", string.Empty);
+			enumValueName = enumValueName.Replace("'", string.Empty);
+			enumValueName = enumValueName.Replace("(", string.Empty);
+			enumValueName = enumValueName.Replace(")", string.Empty);
+			enumValueName = enumValueName.Replace(":", string.Empty);
+			enumValueName = enumValueName.Replace("  ", "_");
+			enumValueName = enumValueName.Replace(" ", "_");
+
+			int intParsed;
+			if(int.TryParse(enumValueName.Substring(0,1),out intParsed))
+			{
+					enumValueName = enumValueName.Insert(0,"_");
+			}
+			
+            if (IncludeExplicitEnumValues)
+                WriteLine(string.Format("{0} = {1},", enumValueName, dr.Field<int>("EnumValueID")));
+            else
+                WriteLine(string.Format("{0},", enumValueName));
+        }
+        PopIndent();
+#>
+    }
+}
+<#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

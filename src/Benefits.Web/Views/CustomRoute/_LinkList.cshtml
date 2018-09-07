@@ -1,0 +1,11 @@
+@model List<Benefits.Shared.Models.Templates.LinkWidget>
+
+<ul class="sidebar-linkList">
+    @foreach (var listItem in Model)
+    {
+        // If list item is denoted as a sub-level then indent inward.
+        <li style="@(listItem.IsSubLevel ? "list-style-position: inside;" : "")">
+            <a href="@listItem.LinkSrc">@listItem.LinkName</a>
+        </li>
+    }
+</ul>

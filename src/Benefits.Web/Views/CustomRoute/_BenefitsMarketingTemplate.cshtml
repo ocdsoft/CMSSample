@@ -1,0 +1,41 @@
+@model Benefits.Web.ViewModels.CMSViewModel
+
+<div class="container">
+    <div class="row div-white" style="margin-bottom: 10em;">
+        <div class="col-md-12">
+            <h2>@Model.BenefitsMarketingTemplate.PageName</h2>
+            <hr class="light-blue" />
+            <p class="secondaryHeadline visible-md visible-lg">
+                @Model.BenefitsMarketingTemplate.SecondaryHeadline
+            </p>
+            <p class="secondaryHeadline-small visible-xs visible-sm">
+                @Model.BenefitsMarketingTemplate.SecondaryHeadline
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            @Html.Partial("_Billboard",
+                 Tuple.Create(
+                    Model.BenefitsMarketingTemplate.Billboard,
+                    Model.BenefitsMarketingTemplate.UIHelpers))
+
+            @Html.Partial("_RawHtml", Model.BenefitsMarketingTemplate.MainPageHtml)
+
+            @if (Model.BenefitsMarketingTemplate.CustomAction != null && Model.BenefitsMarketingTemplate.CustomAction.View != null)
+            {
+                <vc:custom-action 
+                    view="@Model.BenefitsMarketingTemplate.CustomAction.View" 
+                    view-model="@Model.BenefitsMarketingTemplate.CustomAction.ViewModel"
+                    config-string="@Model.BenefitsMarketingTemplate.CustomAction.ConfigString" />
+            }
+
+            @if (Model.BenefitsMarketingTemplate.FBFeedIsVisible == "Y") {
+                @Html.Partial("_FBFeed")
+            }
+        </div>
+        <div class="col-md-3 col-md-push-1">
+            @Html.Partial("_SmallInfoBox", Model.BenefitsMarketingTemplate.SmallInfoBox)
+        </div>
+    </div>
+</div>
