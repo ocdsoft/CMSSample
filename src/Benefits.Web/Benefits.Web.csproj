@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApiControllers\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Error\" />
     <Folder Include="Views\Shared\Components\CustomAction\" />
   </ItemGroup>
