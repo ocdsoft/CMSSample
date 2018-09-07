@@ -25,8 +25,10 @@ gulp.task("min:css", function () {
 });
 
 gulp.task('copy:ts', function () {
-    gulp.src(paths.typeScript)
+    return gulp.src(paths.typeScript)
         .pipe(gulp.dest(paths.typeScriptDest));
 });
 
-gulp.task('default', ["copy:ts", "min:css"]);
+var build = gulp.series(["min:css","copy:ts"]);
+
+gulp.task('default', build);
