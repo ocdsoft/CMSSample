@@ -39,6 +39,7 @@ These items should happen automatically on build within Visual Studio
 
 * If project won't build, run dotnet build from a cmd prompt
 * If the UI is missing css or js files
+    * Run npm install
     * Right-click on [gulpfile.js](src/Benefits.Web/gulpfile.js) 
     * Select Task Runner Explorer 
         * Double-click the default event to run it.
