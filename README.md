@@ -19,13 +19,14 @@ Run the following SQL script in [CMSSample/Database](CMSSample/Database) to crea
 
 * Set the path at the top of the file to an applicable location.
 
+``` sql
 CREATE DATABASE [CMSSample]
  CONTAINMENT = NONE
  ON  PRIMARY 
 ( NAME = N'CISOregon', FILENAME = N'{local\file\path\here.mdf}' , SIZE = 4096KB , MAXSIZE = UNLIMITED, FILEGROWTH = 10%)
  LOG ON 
 ( NAME = N'CISOregon_log', FILENAME = N'{local\file\path\here.mdf}' , SIZE = 5512KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
-
+```
 
 ## Tested on Visual Studio 2017 15.8.1
 
