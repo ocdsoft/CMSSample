@@ -13,7 +13,7 @@ Click the CMS button drop-down for BENEFITS
 
 ### One time installation script.
 
-Run the following SQL script in [CMSSample/Database](CMSSample/Database) to create the db and load the data.
+Run the following SQL script in [CMSSample/Database](Database) to create the db and load the data.
 
 * Create DB and Load Data.sql
 
