@@ -1,9 +1,5 @@
-# CISBenefits.org
+# CIS CMSSample
 
-**Launched JUN-2017**
-
-* https://www.cisbenefits.org Production
-* http://test.cisbenefits.org/ Test site
 
 
 ## Content Management System (CMS)
@@ -15,28 +11,26 @@ Click the CMS button drop-down for BENEFITS, which takes you here:
 https://www.cisoregon.org/CMS/Index/Benefits
 
 
-## SSL
-
-We have an SSL certificate up for https://www.cisbenefits.org
 
 
-## SQL Create Scripts
+## SQL Create Script
 
-### One time installation scripts.
+### One time installation script.
 
-There are three SQL scripts in [Benefits/Database](Benefits/Database)
+Run the following SQL script in [CMSSample/Database](CMSSample/Database) to create the db and load the data.
 
-* Create CMS Site URL Lookups
-* Create New Sample CMS Entries
-* Create new CMS Template Associations
+* Create DB and Load Data.sql
 
 
-## CIS Benefits Color Palette?
+
+## Requires .Net Core 2.1 
  
-It's in DocLoc, saved to the Resource Library. It's also available on CISCO, under the Resources tab.
+* [https://www.microsoft.com/net/download](Download .Net Core)
 
-`Document Locator\CISDocs\Documents\Resource Library\Communications Platform.pdf`
+## Troubleshooting
 
+* If project won't build, run dotnet build from a cmd prompt
+* If the UI is missing css or js files, 
 
 
 
